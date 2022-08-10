@@ -228,8 +228,6 @@ def item(
 def lazy_property(f):
     return property(lru_cache(maxsize=None)(f))
 
-lru = lru_cache(maxsize=None)
-
 class StringType(Enum):
     # Single Line Basic
     SLB = '"'
@@ -280,27 +278,28 @@ class StringType(Enum):
             StringType.MLL: (forbidden_in_literal | {"'''"}) - allowed_in_multiline,
         }[self]
 
-    @lazy_property
+    @property
+    @lru_cache(maxsize=None)
     def unit(self) -> str:
         return self.value[0]
 
-    @lru
+    @lru_cache(maxsize=None)
     def _is_basic(self) -> bool:
         return self in {StringType.SLB, StringType.MLB}
 
-    @lru
+    @lru_cache(maxsize=None)
     def _is_literal(self) -> bool:
         return self in {StringType.SLL, StringType.MLL}
 
-    @lru
+    @lru_cache(maxsize=None)
     def _is_singleline(self) -> bool:
         return self in {StringType.SLB, StringType.SLL}
 
-    @lru
+    @lru_cache(maxsize=None)
     def _is_multiline(self) -> bool:
         return self in {StringType.MLB, StringType.MLL}
 
-    @lru
+    @lru_cache(maxsize=None)
     def _toggle(self) -> "StringType":
         return {
             StringType.SLB: StringType.MLB,
