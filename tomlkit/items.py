@@ -228,6 +228,7 @@ def item(
 def lazy_property(f):
     return property(lru_cache(maxsize=None)(f))
 
+lru = lru_cache(maxsize=None)
 
 class StringType(Enum):
     # Single Line Basic
@@ -240,11 +241,11 @@ class StringType(Enum):
     MLL = "'''"
 
     def __init__(self, value):
-        self.is_basic = lru_cache(maxsize=None)(self._is_basic)
-        self.is_literal = lru_cache(maxsize=None)(self._is_literal)
-        self.is_singleline = lru_cache(maxsize=None)(self._is_singleline)
-        self.is_multiline = lru_cache(maxsize=None)(self._is_multiline)
-        self.toggle = lru_cache(maxsize=None)(self._toggle)
+        self.is_basic = (self._is_basic)
+        self.is_literal = (self._is_literal)
+        self.is_singleline = (self._is_singleline)
+        self.is_multiline = (self._is_multiline)
+        self.toggle = (self._toggle)
 
     @classmethod
     def select(cls, literal=False, multiline=False) -> "StringType":
@@ -283,18 +284,23 @@ class StringType(Enum):
     def unit(self) -> str:
         return self.value[0]
 
+    @lru
     def _is_basic(self) -> bool:
         return self in {StringType.SLB, StringType.MLB}
 
+    @lru
     def _is_literal(self) -> bool:
         return self in {StringType.SLL, StringType.MLL}
 
+    @lru
     def _is_singleline(self) -> bool:
         return self in {StringType.SLB, StringType.SLL}
 
+    @lru
     def _is_multiline(self) -> bool:
         return self in {StringType.MLB, StringType.MLL}
 
+    @lru
     def _toggle(self) -> "StringType":
         return {
             StringType.SLB: StringType.MLB,

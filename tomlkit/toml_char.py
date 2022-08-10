@@ -3,14 +3,16 @@ import string
 from functools import lru_cache
 
 
+lru = lru_cache(maxsize=None)
+
 class TOMLChar(str):
     def __init__(self, c):
-        self.is_bare_key_char = lru_cache(maxsize=None)(self._is_bare_key_char)
-        self.is_kv_sep = lru_cache(maxsize=None)(self._is_kv_sep)
-        self.is_int_float_char = lru_cache(maxsize=None)(self._is_int_float_char)
-        self.is_ws = lru_cache(maxsize=None)(self._is_ws)
-        self.is_nl = lru_cache(maxsize=None)(self._is_nl)
-        self.is_spaces = lru_cache(maxsize=None)(self._is_spaces)
+        self.is_bare_key_char = (self._is_bare_key_char)
+        self.is_kv_sep = (self._is_kv_sep)
+        self.is_int_float_char = (self._is_int_float_char)
+        self.is_ws = (self._is_ws)
+        self.is_nl = (self._is_nl)
+        self.is_spaces = (self._is_spaces)
         super().__init__()
 
         if len(self) > 1:
@@ -23,36 +25,42 @@ class TOMLChar(str):
     NL = "\n\r"
     WS = SPACES + NL
 
+    @lru
     def _is_bare_key_char(self) -> bool:
         """
         Whether the character is a valid bare key name or not.
         """
         return self in self.BARE
 
+    @lru
     def _is_kv_sep(self) -> bool:
         """
         Whether the character is a valid key/value separator or not.
         """
         return self in self.KV
 
+    @lru
     def _is_int_float_char(self) -> bool:
         """
         Whether the character if a valid integer or float value character or not.
         """
         return self in self.NUMBER
 
+    @lru
     def _is_ws(self) -> bool:
         """
         Whether the character is a whitespace character or not.
         """
         return self in self.WS
 
+    @lru
     def _is_nl(self) -> bool:
         """
         Whether the character is a new line character or not.
         """
         return self in self.NL
 
+    @lru
     def _is_spaces(self) -> bool:
         """
         Whether the character is a space or not
