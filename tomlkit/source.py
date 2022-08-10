@@ -129,7 +129,11 @@ class Source(str):
         Increments the parser by n characters
         if the end of the input has not been reached.
         """
-        return all(self.inc(exception=exception) for _ in range(n))
+        for _ in range(n):
+            if not self.inc(exception=exception):
+                return False
+
+        return True
 
     def consume(self, chars, min=0, max=-1):
         """
