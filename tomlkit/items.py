@@ -234,6 +234,7 @@ class StringType(Enum):
     MLL = "'''"
 
     def __init__(self, value):
+        super().__init__(value)
         self.is_basic = (self._is_basic)
         self.is_literal = (self._is_literal)
         self.is_singleline = (self._is_singleline)
