@@ -123,10 +123,9 @@ def _unicode_escape(seq: str) -> str:
 def escape_string(s: str, escape_sequences: Collection[str] = _basic_escapes) -> str:
     s = decode(s)
 
-    l = len(s)
-
     res = []
     start = 0
+    l = len(s)
 
     def flush(inc=1):
         if start != i:
