@@ -1,8 +1,8 @@
 import os
 import re
 
-from tomlkit.api import loads
-from tomlkit.toml_document import TOMLDocument
+from .api import loads
+from .toml_document import TOMLDocument
 
 
 class TOMLFile:
@@ -17,7 +17,7 @@ class TOMLFile:
         self._linesep = os.linesep
 
     def read(self) -> TOMLDocument:
-        """Read the file content as a :class:`tomlkit.toml_document.TOMLDocument`."""
+        """Read the file content as a :class:`.toml_document.TOMLDocument`."""
         with open(self._path, encoding="utf-8", newline="") as f:
             content = f.read()
 

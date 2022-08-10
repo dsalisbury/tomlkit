@@ -1,4 +1,4 @@
-from tomlkit.container import Container
+from .container import Container
 
 
 class TOMLDocument(Container):

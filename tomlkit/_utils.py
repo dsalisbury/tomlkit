@@ -9,7 +9,7 @@ from datetime import timezone
 from typing import Collection
 from typing import Union
 
-from tomlkit._compat import decode
+from ._compat import decode
 
 
 RFC_3339_LOOSE = re.compile(

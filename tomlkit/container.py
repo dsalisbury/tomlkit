@@ -8,22 +8,22 @@ from typing import Optional
 from typing import Tuple
 from typing import Union
 
-from tomlkit._compat import decode
-from tomlkit._utils import merge_dicts
-from tomlkit.exceptions import KeyAlreadyPresent
-from tomlkit.exceptions import NonExistentKey
-from tomlkit.exceptions import TOMLKitError
-from tomlkit.items import AoT
-from tomlkit.items import Comment
-from tomlkit.items import Item
-from tomlkit.items import Key
-from tomlkit.items import Null
-from tomlkit.items import SingleKey
-from tomlkit.items import Table
-from tomlkit.items import Trivia
-from tomlkit.items import Whitespace
-from tomlkit.items import _CustomDict
-from tomlkit.items import item as _item
+from ._compat import decode
+from ._utils import merge_dicts
+from .exceptions import KeyAlreadyPresent
+from .exceptions import NonExistentKey
+from .exceptions import TOMLKitError
+from .items import AoT
+from .items import Comment
+from .items import Item
+from .items import Key
+from .items import Null
+from .items import SingleKey
+from .items import Table
+from .items import Trivia
+from .items import Whitespace
+from .items import _CustomDict
+from .items import item as _item
 
 
 _NOT_SET = object()

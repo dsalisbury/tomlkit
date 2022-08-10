@@ -4,9 +4,9 @@ from typing import Optional
 from typing import Tuple
 from typing import Type
 
-from tomlkit.exceptions import ParseError
-from tomlkit.exceptions import UnexpectedCharError
-from tomlkit.toml_char import TOMLChar
+from .exceptions import ParseError
+from .exceptions import UnexpectedCharError
+from .toml_char import TOMLChar
 
 
 class _State:
