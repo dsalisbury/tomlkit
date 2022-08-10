@@ -123,6 +123,8 @@ def _unicode_escape(seq: str) -> str:
 def escape_string(s: str, escape_sequences: Collection[str] = _basic_escapes) -> str:
     s = decode(s)
 
+    l = len(s)
+
     res = []
     start = 0
 
@@ -133,7 +135,7 @@ def escape_string(s: str, escape_sequences: Collection[str] = _basic_escapes) ->
         return i + inc
 
     i = 0
-    while i < len(s):
+    while i < l:
         for seq in escape_sequences:
             seq_len = len(seq)
             if s[i:].startswith(seq):

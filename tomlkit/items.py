@@ -223,11 +223,6 @@ def item(
     raise ValueError(f"Invalid type {type(value)}")
 
 
-# This code is only valid for Python < 3.8, when @cached_property was introduced
-# it replaces chained @property and @lru_cache decorators
-def lazy_property(f):
-    return property(lru_cache(maxsize=None)(f))
-
 class StringType(Enum):
     # Single Line Basic
     SLB = '"'
