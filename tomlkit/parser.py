@@ -964,9 +964,10 @@ class Parser:
             key = name_parts[0]
 
             for i, _name in enumerate(name_parts[1:]):
-                child = table.get(
-                    _name,
-                    Table(
+                if _name in table:
+                    child = table[_name]
+                else:
+                    child = Table(
                         Container(True),
                         Trivia(indent, cws, comment, trail),
                         is_aot and i == len(name_parts) - 2,
@@ -975,8 +976,7 @@ class Parser:
                         display_name=full_key.as_string()
                         if i == len(name_parts) - 2
                         else None,
-                    ),
-                )
+                    )
 
                 if is_aot and i == len(name_parts) - 2:
                     table.raw_append(_name, AoT([child], name=table.name, parsed=True))
