@@ -596,8 +596,8 @@ class Comment(Item):
         return 1
 
     def as_string(self) -> str:
-        return (
-            f"{self._trivia.indent}{decode(self._trivia.comment)}{self._trivia.trail}"
+        return "{}{}{}".format(
+            self._trivia.indent, decode(self._trivia.comment), self._trivia.trail
         )
 
     def __str__(self) -> str:
@@ -1132,7 +1132,7 @@ class Array(Item, _CustomList):
 
     def as_string(self) -> str:
         if not self._multiline or not self._value:
-            return f'[{"".join(v.as_string() for v in self._value)}]'
+            return "[{}]".format("".join(v.as_string() for v in self._value)) 
 
         s = "[\n"
         s += "".join(
@@ -1636,14 +1636,13 @@ class InlineTable(AbstractTable):
 
                 continue
 
-            v_trivia_trail = v.trivia.trail.replace("\n", "")
-            buf += (
-                f"{v.trivia.indent}"
-                f'{k.as_string() + ("." if k.is_dotted() else "")}'
-                f"{k.sep}"
-                f"{v.as_string()}"
-                f"{v.trivia.comment}"
-                f"{v_trivia_trail}"
+            buf += "{}{}{}{}{}{}".format(
+                v.trivia.indent,
+                k.as_string() + ("." if k.is_dotted() else ""),
+                k.sep,
+                v.as_string(),
+                v.trivia.comment,
+                v.trivia.trail.replace("\n", ""),
             )
 
             if i != len(self._value.body) - 1:
