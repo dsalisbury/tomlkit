@@ -808,7 +808,9 @@ class Parser:
                 delim.is_singleline()
                 and not escaped
                 and (code == CHR_DEL or code <= CTRL_CHAR_LIMIT and code != CTRL_I)
-            ) or (
+            ):
+                raise self.parse_error(InvalidControlChar, code, "strings")
+            elif (
                 delim.is_multiline()
                 and not escaped
                 and (
