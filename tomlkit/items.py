@@ -233,7 +233,7 @@ class StringType(Enum):
     # Multi Line Literal
     MLL = "'''"
 
-    def __init__(self, value):
+    def z__init__(self, value):
         super().__init__(value)
         self.is_basic = (self._is_basic)
         self.is_literal = (self._is_literal)
@@ -280,23 +280,23 @@ class StringType(Enum):
         return self.value[0]
 
     @lru_cache(maxsize=None)
-    def _is_basic(self) -> bool:
+    def is_basic(self) -> bool:
         return self in {StringType.SLB, StringType.MLB}
 
     @lru_cache(maxsize=None)
-    def _is_literal(self) -> bool:
+    def is_literal(self) -> bool:
         return self in {StringType.SLL, StringType.MLL}
 
     @lru_cache(maxsize=None)
-    def _is_singleline(self) -> bool:
+    def is_singleline(self) -> bool:
         return self in {StringType.SLB, StringType.SLL}
 
     @lru_cache(maxsize=None)
-    def _is_multiline(self) -> bool:
+    def is_multiline(self) -> bool:
         return self in {StringType.MLB, StringType.MLL}
 
     @lru_cache(maxsize=None)
-    def _toggle(self) -> "StringType":
+    def toggle(self) -> "StringType":
         return {
             StringType.SLB: StringType.MLB,
             StringType.MLB: StringType.SLB,
